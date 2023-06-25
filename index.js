@@ -6,7 +6,6 @@ const setAmPm = document.querySelector("#am-pm");
 const setAlarmButton = document.querySelector("#submitButton");
 const alarmContainer = document.querySelector("#alarms-container");
 
-
 // Adding Hours, Minutes, Seconds in DropDown Menu
 window.addEventListener("DOMContentLoaded", (event) => {
   
@@ -69,36 +68,14 @@ function convertToTime(hour, minute, second, amPm) {
   return `${parseInt(hour)}:${minute}:${second} ${amPm}`;
 }
 
-setInterval(() => {
-    let date = new Date(),
-    h = date.getHours(),
-    m = date.getMinutes(),
-    s = date.getSeconds(),
-    ampm = "AM";
-    if(h >= 12) {
-        h = h - 12;
-        ampm = "PM";
-    }
-    h = h == 0 ? h = 12 : h;
-    h = h < 10 ? "0" + h : h;
-    m = m < 10 ? "0" + m : m;
-    s = s < 10 ? "0" + s : s;
-    currentTime.innerText = `${h}:${m}:${s} ${ampm}`;
 
-    if (alarmTime === `${h}:${m} ${ampm}`) {
-        ringtone.play();
-        ringtone.loop = true;
+function setAlarm(time, fetching = false) {
+  const alarm = setInterval(() => {
+    if (time === getCurrentTime()) {
+      alert("Alarm Ringing");
     }
-});
-
-function setAlarm() {
-    if (isAlarmSet) {
-        alarmTime = "";
-        ringtone.pause();
-        content.classList.remove("disable");
-        setAlarmBtn.innerText = "Set Alarm";
-        return isAlarmSet = false;
-    }
+    console.log("running");
+  }, 500);
 
   addAlaramToDom(time, alarm);
   if (!fetching) {
